@@ -11,17 +11,43 @@
 		 <tr>
 			 <% noLigne++
 			 for (p in elm ){ %>
-			 <td><%= p %></td>
+			 <td><a href='http://localhost:8081/trier/<%= p %>/1'><%= p %></a></td>
 			 <% } %>
 		 </tr>
 	 <% } %>
 
 	 <tr>
 		 <% for (p in elm ){ %>
-		 <td><%= elm[p] %></td>
+		 <td contenteditable='true'><%= elm[p] %></td>
 		 <% } %>
+		 <td><a href='/detruire/<%= elm._id %>'>Détruire </a></td>
+		 <td><a class="sauver" href="#">Modifier </a></td>
 	 </tr>
 	 <% } %>
  </table>
+ <%- include('composants/formulaire_ajout') %>
+ <script type="text/javascript">
+	let elmSauver = document.querySelectorAll('.sauver')
+	for (elm of elmSauver){
+		elm.addEventListener('click', function(){
+			let laLigne = this.parentNode.parentNode
+			let id = laLigne.children[0].innerHTML
+			let nom = laLigne.children[1].innerHTML
+			let prenom = laLigne.children[2].innerHTML
+			let telephone = laLigne.children[3].innerHTML
+			let courriel = laLigne.children[4].innerHTML
+
+			let elmForm = document.getElementById('mon_formulaire')
+			let elmInput = elmForm.querySelectorAll('input')
+			elmInput[0].value = id
+			elmInput[1].value = nom
+			elmInput[2].value = prenom
+			elmInput[3].value = telephone
+			elmInput[4].value = courriel
+
+			elmForm.submit()
+		})
+	} 
+</script>
 </body>
 </html>
