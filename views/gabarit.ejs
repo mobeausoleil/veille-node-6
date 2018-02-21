@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
+<meta charset="utf-8">
 <%- include('composants/head') %>
 <body>
 <%- include('composants/formulaire') %>
+<div id="global">
  <table class="tableau">
  	<% let noLigne = 0 %>
 	 <% for (elm of adresses) { %>
@@ -11,7 +13,7 @@
 		 <tr>
 			 <% noLigne++
 			 for (p in elm ){ %>
-			 <td><a href='http://localhost:8081/trier/<%= p %>/<%= direction %>'><%= p %></a></td>
+			 <th><a href='http://localhost:8081/trier/<%= p %>/<%= direction %>'><%= p %></a></th>
 			 <% } %>
 		 </tr>
 	 <% } %>
@@ -26,6 +28,7 @@
 	 <% } %>
  </table>
  <%- include('composants/formulaire_ajout') %>
+</div>
  <script type="text/javascript">
 	let elmSauver = document.querySelectorAll('.sauver')
 	for (elm of elmSauver){
