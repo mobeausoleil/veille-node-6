@@ -31,7 +31,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresses', (err, database)
 app.get('/', (req, res) => {
 	let cursor = db.collection('adresses').find().toArray((err, resultat) => {
  		if (err) return console.log(err)
-  	res.render('gabarit.ejs', {adresses: resultat})
+  	res.render('gabarit.ejs', {adresses: resultat, direction: "asc"})
   })
 })
 
@@ -72,9 +72,10 @@ app.get('/trier/:cle/:ordre', (req, res) => {
 	let cle = req.params.cle
 	let ordre = (req.params.ordre == 'asc' ? 1 : -1)
 	let cursor = db.collection('adresses').find().sort(cle,ordre).toArray(function(err, resultat){
-		ordre = !ordre;
+		ordre *= -1;
+		let direction = (ordre == 1 ? "asc" : "desc")
 		res.render('gabarit.ejs', {
-			adresses: resultat, cle, ordre
+			adresses: resultat, cle, direction
 		})
 	})
 })
